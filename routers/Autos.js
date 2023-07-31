@@ -35,7 +35,7 @@ appAutos.get("/",(req,res)=>{
 
 appAutos.get("/capacidad",(req,res)=>{
     con.query(
-        `SELECT * FROM Automovil WHERE Capacidad = "7";
+        `SELECT * FROM Automovil WHERE Capacidad >5;
         `, (error,results)=>{
             if(error){
                 console.log(error);
