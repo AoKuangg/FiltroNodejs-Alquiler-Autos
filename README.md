@@ -77,7 +77,7 @@ Para el uso de JWT en el thunder client en la seccion de headers, agregar una nu
     ```
 
 2. #### Autos
-    - En este enpoint se filtran todos los automoviles y se muestran los que estan disponibles para alquiler.
+    - En este enpoint se filtran todos los automoviles y se muestran los que estan disponibles para alquiler. Tambien al final de este endpoint se entrega un token de acceso necesario para el resto de las consultas relacionadas en esta seccion.
     ```
     http://127.16.16.16:4550/autos
     ```
@@ -94,7 +94,7 @@ Para el uso de JWT en el thunder client en la seccion de headers, agregar una nu
     http://127.16.16.16:4550/autos/capacidad/disponible
     ```
 3. #### Alquiler
-    - En este endpoint se traen todos los alquileres y los datos de los clietes los cuales alquilaron y estan activos.
+    - En este endpoint se traen todos los alquileres y los datos de los clietes los cuales alquilaron y estan activos. Tambien al final de este endpoint se entrega un token de acceso necesario para el resto de las consultas relacionadas en esta seccion.
     ```
     http://127.16.16.16:4550/alquiler
     ```
@@ -119,7 +119,7 @@ Para el uso de JWT en el thunder client en la seccion de headers, agregar una nu
     http://127.16.16.16:4550/alquiler/:IdAlquiler
     ```
 4. #### Reserva
-    - En este endpoint se traen todas las reservas junto con los datos del cliente y el automovil reservado.
+    - En este endpoint se traen todas las reservas junto con los datos del cliente y el automovil reservado. Tambien al final de este endpoint se entrega un token de acceso necesario para el resto de las consultas relacionadas en esta seccion.
     ```
     http://127.16.16.16:4550/reserva
     ```
@@ -128,7 +128,7 @@ Para el uso de JWT en el thunder client en la seccion de headers, agregar una nu
     http://127.16.16.16:4550/reserva/:idCliente
     ```
 5. #### Empleados
-    - En este endpoint se traen todos los empleados que tienen el cargo vendedor
+    - En este endpoint se traen todos los empleados que tienen el cargo vendedor. Tambien al final de este endpoint se entrega un token de acceso necesario para el resto de las consultas relacionadas en esta seccion.
     ```
     http://127.16.16.16:4550/empleados
     ```
@@ -137,7 +137,7 @@ Para el uso de JWT en el thunder client en la seccion de headers, agregar una nu
     http://127.16.16.16:4550/empleados/altoCargo
     ```
 6. #### Sucursal
-    - En este endpoint se muestran la cantidad de autos disponibles en cada sucursal.
+    - En este endpoint se muestran la cantidad de autos disponibles en cada sucursal. Tambien al final de este endpoint se entrega un token de acceso necesario para el resto de las consultas relacionadas en esta seccion.
     ```
     http://127.16.16.16:4550/sucursal
     ```
