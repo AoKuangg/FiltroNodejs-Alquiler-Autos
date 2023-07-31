@@ -147,7 +147,7 @@ Para el uso de JWT en el thunder client en la seccion de headers, agregar una nu
     ```
 
 ### Falta
-No alcanze a implementar el dto ni los jwt en las consultas
+No alcanze a implementar el dto en las consultas
 
 
 ### AUTOR
