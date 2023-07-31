@@ -1,6 +1,7 @@
 import { Router } from "express";
 import mysql from "mysql2";
 import dotenv from "dotenv";
+import { generateToken, validateToken } from "../JWT/tokenJWT.js";
 dotenv.config();
 const appAlquiler = Router();
 let con = undefined;
@@ -14,7 +15,7 @@ appAlquiler.use((req,res,next)=>{
    } 
 });
 
-appAlquiler.get("/",(req,res)=>{
+appAlquiler.get("/",generateToken,(req,res)=>{
     con.query(
         `SELECT q.ID_Alquiler, q.ID_Cliente, q.ID_Automovil, q.Fecha_Inicio, q.Fecha_Fin, q.Costo_Total, q.Estado, c.Nombre, c.Apellido, c.DNI, c.Direccion,
         c.Telefono, c.Email
@@ -31,7 +32,7 @@ appAlquiler.get("/",(req,res)=>{
         }
     )
 });
-appAlquiler.get("/fecha",(req,res)=>{
+appAlquiler.get("/fecha",validateToken,(req,res)=>{
     con.query(
         `SELECT * FROM Alquiler WHERE Fecha_Inicio = "2023-07-05"
         `, (error,results)=>{
@@ -46,7 +47,7 @@ appAlquiler.get("/fecha",(req,res)=>{
 });
 
 
-appAlquiler.get("/entrefechas",(req,res)=>{
+appAlquiler.get("/entrefechas",validateToken,(req,res)=>{
     con.query(
         `SELECT * FROM Alquiler WHERE Fecha_Inicio BETWEEN "2023-07-05" AND "2023-07-10"
         `, (error,results)=>{
@@ -61,7 +62,7 @@ appAlquiler.get("/entrefechas",(req,res)=>{
 });
 
 
-appAlquiler.get("/total",(req,res)=>{
+appAlquiler.get("/total",validateToken,(req,res)=>{
     con.query(
         `SELECT COUNT(*) as Cantidad_de_alquileres FROM Alquiler`, 
         (error,results)=>{
@@ -77,7 +78,7 @@ appAlquiler.get("/total",(req,res)=>{
 
 
 
-appAlquiler.get("/costo/:IdAlquiler",(req,res)=>{
+appAlquiler.get("/costo/:IdAlquiler",validateToken,(req,res)=>{
     const IdAlquiler = req.params.IdAlquiler
     con.query(
         `SELECT a.ID_ALquiler, a.Costo_Total FROM Alquiler a WHERE a.ID_ALquiler = ?
@@ -91,7 +92,7 @@ appAlquiler.get("/costo/:IdAlquiler",(req,res)=>{
         }
     )
 });
-appAlquiler.get("/:IdAlquiler",(req,res)=>{
+appAlquiler.get("/:IdAlquiler",validateToken,(req,res)=>{
     const IdAlquiler = req.params.IdAlquiler
     con.query(
         `SELECT * FROM Alquiler WHERE ID_Alquiler = ?

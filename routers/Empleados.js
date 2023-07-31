@@ -1,6 +1,7 @@
 import { Router } from "express";
 import mysql from "mysql2";
 import dotenv from "dotenv";
+import { generateToken, validateToken } from "../JWT/tokenJWT.js";
 dotenv.config();
 const appEmpleados = Router();
 
@@ -16,7 +17,7 @@ appEmpleados.use((req,res,next)=>{
 });
 
 
-appEmpleados.get("/",(req,res)=>{
+appEmpleados.get("/",generateToken,(req,res)=>{
     con.query(
         `SELECT * FROM Empleado WHERE Cargo = "Vendedor"
         `, (error,results)=>{
@@ -29,7 +30,7 @@ appEmpleados.get("/",(req,res)=>{
         }
     )
 });
-appEmpleados.get("/altoCargo",(req,res)=>{
+appEmpleados.get("/altoCargo",validateToken,(req,res)=>{
     con.query(
         `SELECT * FROM Empleado WHERE Cargo = "Gerente" OR Cargo = "Asistente"
         `, (error,results)=>{

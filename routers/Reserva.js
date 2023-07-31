@@ -1,6 +1,8 @@
 import { Router } from "express";
 import mysql from "mysql2";
 import dotenv from "dotenv";
+import { generateToken, validateToken } from "../JWT/tokenJWT.js";
+
 dotenv.config();
 const appReserva = Router();
 
@@ -15,7 +17,7 @@ appReserva.use((req,res,next)=>{
    } 
 });
 
-appReserva.get("/",(req,res)=>{
+appReserva.get("/",generateToken,(req,res)=>{
     con.query(
         `SELECT r.ID_Reserva, r.ID_Cliente, r.ID_Automovil, r.Fecha_Reserva, r.Fecha_Inicio, r.Fecha_Fin, r.Estado, c.Nombre, c.Apellido, c.DNI, c.Direccion,
         c.Telefono, c.Email, a.Marca, a.Modelo, a.Anio, a.Tipo, a.Capacidad, a.Precio_Diario
@@ -34,7 +36,7 @@ appReserva.get("/",(req,res)=>{
     )
 });
 
-appReserva.get("/:idCliente",(req,res)=>{
+appReserva.get("/:idCliente",validateToken,(req,res)=>{
     const idCliente = req.params.idCliente
     con.query(
         `SELECT * FROM Reserva WHERE ID_Cliente = ? AND Estado = "Pendiente" `,[idCliente],

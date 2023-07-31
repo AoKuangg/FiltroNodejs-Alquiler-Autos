@@ -1,6 +1,7 @@
 import { Router } from "express";
 import mysql from "mysql2";
 import dotenv from "dotenv";
+import { generateToken, validateToken } from "../JWT/tokenJWT.js";
 dotenv.config();
 const appAutos = Router();
 
@@ -15,7 +16,7 @@ appAutos.use((req,res,next)=>{
    } 
 });
 
-appAutos.get("/",(req,res)=>{
+appAutos.get("/",generateToken,(req,res)=>{
     con.query(
         `SELECT a.ID_Automovil, a.Marca, a.Modelo, a.Anio, a.Tipo, a.Capacidad, a.Precio_Diario, q.Costo_Total, q.Estado
         FROM Automovil a
@@ -33,7 +34,7 @@ appAutos.get("/",(req,res)=>{
 });
 
 
-appAutos.get("/capacidad",(req,res)=>{
+appAutos.get("/capacidad",validateToken,(req,res)=>{
     con.query(
         `SELECT * FROM Automovil WHERE Capacidad >5;
         `, (error,results)=>{
@@ -47,7 +48,7 @@ appAutos.get("/capacidad",(req,res)=>{
     )
 });
 
-appAutos.get("/marca" ,(req,res)=>{
+appAutos.get("/marca" ,validateToken,(req,res)=>{
     con.query(
         `SELECT * FROM Automovil ORDER BY Marca ASC`,
         (error,results)=>{
@@ -60,7 +61,7 @@ appAutos.get("/marca" ,(req,res)=>{
         }
     )
 });
-appAutos.get("/capacidad/disponible",(req,res)=>{
+appAutos.get("/capacidad/disponible",validateToken,(req,res)=>{
     con.query(
         `SELECT a.* FROM Automovil a
         INNER JOIN Alquiler q ON a.ID_Automovil = q.ID_Automovil

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import mysql from "mysql2";
 import dotenv from "dotenv";
+import { generateToken, validateToken } from "../JWT/tokenJWT.js";
 dotenv.config();
 const appSucursal = Router();
 
@@ -15,7 +16,7 @@ appSucursal.use((req,res,next)=>{
    } 
 });
 
-appSucursal.get("/",(req,res)=>{
+appSucursal.get("/",generateToken,(req,res)=>{
     con.query(
         `SELECT s.Nombre, sc.Cantidad_Disponible as Cantidad_de_autos_disponibles
          FROM Sucursal s
@@ -31,7 +32,7 @@ appSucursal.get("/",(req,res)=>{
     )
 });
 
-appSucursal.get("/datos",(req,res)=>{
+appSucursal.get("/datos",validateToken,(req,res)=>{
     con.query(
         `SELECT s.Nombre,s.Direccion,s.Telefono, sc.Cantidad_Disponible as Cantidad_de_autos_disponibles
          FROM Sucursal s
