@@ -17,7 +17,7 @@ appSucursal.use((req,res,next)=>{
 
 appSucursal.get("/",(req,res)=>{
     con.query(
-        `SELECT s.Nombre, s.Direccion, sc.Cantidad_Disponible as Cantidad_de_autos_disponibles
+        `SELECT s.Nombre, sc.Cantidad_Disponible as Cantidad_de_autos_disponibles
          FROM Sucursal s
          INNER JOIN Sucursal_Automovil sc ON  s.ID_Sucursal = sc.ID_Sucursal
         `, (error,results)=>{
@@ -31,7 +31,21 @@ appSucursal.get("/",(req,res)=>{
     )
 });
 
-
+appSucursal.get("/datos",(req,res)=>{
+    con.query(
+        `SELECT s.Nombre,s.Direccion,s.Telefono, sc.Cantidad_Disponible as Cantidad_de_autos_disponibles
+         FROM Sucursal s
+         INNER JOIN Sucursal_Automovil sc ON  s.ID_Sucursal = sc.ID_Sucursal
+        `, (error,results)=>{
+            if(error){
+                console.log(error);
+                res.status(500).send("Error executing query")
+            }else{
+                res.status(200).send(results);
+            }
+        }
+    )
+});
 
 
 
