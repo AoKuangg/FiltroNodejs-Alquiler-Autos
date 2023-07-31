@@ -29,4 +29,20 @@ appClientes.get("/",(req,res)=>{
     )
 });
 
+
+appClientes.get("/:DNI",(req,res)=>{
+    const dni = req.params.DNI
+    con.query(
+        `SELECT * FROM Cliente WHERE DNI = ?`,[dni],
+        (error,results)=>{
+            if (error) {
+                console.log(error);
+                res.status(500).send("Error executing query")
+            }else{
+                res.status(200).send(results);
+            }
+        }
+    )
+});
+
 export default appClientes;
