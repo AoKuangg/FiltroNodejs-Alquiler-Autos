@@ -33,6 +33,21 @@ appAlquiler.get("/",(req,res)=>{
     )
 });
 
+appAlquiler.use("/:IdAlquiler",(req,res)=>{
+    const IdAlquiler = req.params.IdAlquiler
+    con.query(
+        `SELECT * FROM Alquiler WHERE ID_Alquiler = ?
+        `, [IdAlquiler], (error,results)=>{
+            if(error){
+                console.log(error);
+                res.status(500).send("Error executing query")
+            }else{
+                res.status(200).send(results);
+            }
+        }
+    )
+});
+
 
 
 
