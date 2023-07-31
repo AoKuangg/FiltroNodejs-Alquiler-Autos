@@ -1,6 +1,7 @@
 import { Router } from "express";
 import mysql from "mysql2";
 import dotenv from "dotenv";
+import { generateToken, validateToken } from "../JWT/tokenJWT.js";
 dotenv.config();
 const appClientes = Router();
 
@@ -15,7 +16,7 @@ appClientes.use((req,res,next)=>{
    } 
 });
 
-appClientes.get("/",(req,res)=>{
+appClientes.get("/",generateToken,(req,res)=>{
     con.query(
         `SELECT * FROM Cliente`,
         (error,results)=>{
@@ -23,13 +24,13 @@ appClientes.get("/",(req,res)=>{
                 console.log(error);
                 res.status(500).send("Error executing query")
             }else{
-                res.status(200).send(results);
+                res.status(200).send({results,token: req.auth});
             }
         }
     )
 });
 
-appClientes.get("/alquiler",(req,res)=>{
+appClientes.get("/alquiler",validateToken,(req,res)=>{
     con.query(
         `SELECT c.* FROM Cliente c INNER JOIN Alquiler a ON c.ID_Cliente = a.ID_Cliente
         WHERE a.Estado = "activo"`,
@@ -43,7 +44,7 @@ appClientes.get("/alquiler",(req,res)=>{
         }
     )
 });
-appClientes.get("/reserva/:idReserva",(req,res)=>{
+appClientes.get("/reserva/:idReserva",validateToken,(req,res)=>{
     const idReserva = req.params.idReserva;
     con.query(
         `SELECT c.* FROM Cliente c INNER JOIN Reserva r ON c.ID_Cliente = r.ID_Cliente
@@ -59,7 +60,7 @@ appClientes.get("/reserva/:idReserva",(req,res)=>{
     )
 });
 
-appClientes.get("/:DNI",(req,res)=>{
+appClientes.get("/:DNI",validateToken,(req,res)=>{
     const dni = req.params.DNI
     con.query(
         `SELECT * FROM Cliente WHERE DNI = ?`,[dni],
