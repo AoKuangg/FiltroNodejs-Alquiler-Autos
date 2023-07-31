@@ -60,7 +60,21 @@ appAutos.get("/marca" ,(req,res)=>{
         }
     )
 });
-
+appAutos.get("/capacidad/disponible",(req,res)=>{
+    con.query(
+        `SELECT a.* FROM Automovil a
+        INNER JOIN Alquiler q ON a.ID_Automovil = q.ID_Automovil
+        WHERE q.Estado = "Disponible" AND Capacidad = 5  ;
+        `, (error,results)=>{
+            if(error){
+                console.log(error);
+                res.status(500).send("Error executing query")
+            }else{
+                res.status(200).send(results);
+            }
+        }
+    )
+});
 
 
 
