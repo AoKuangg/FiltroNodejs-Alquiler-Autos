@@ -44,6 +44,23 @@ appAlquiler.get("/fecha",(req,res)=>{
         }
     )
 });
+
+appAlquiler.get("/total",(req,res)=>{
+    con.query(
+        `SELECT COUNT(*) as Cantidad_de_alquileres FROM Alquiler`, 
+        (error,results)=>{
+            if(error){
+                console.log(error);
+                res.status(500).send("Error executing query")
+            }else{
+                res.status(200).send(results);
+            }
+        }
+    )
+});
+
+
+
 appAlquiler.get("/costo/:IdAlquiler",(req,res)=>{
     const IdAlquiler = req.params.IdAlquiler
     con.query(
