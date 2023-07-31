@@ -43,6 +43,22 @@ appClientes.get("/alquiler",(req,res)=>{
         }
     )
 });
+appClientes.get("/reserva/:idReserva",(req,res)=>{
+    const idReserva = req.params.idReserva;
+    con.query(
+        `SELECT c.* FROM Cliente c INNER JOIN Reserva r ON c.ID_Cliente = r.ID_Cliente
+        WHERE r.ID_Reserva = ?`,[idReserva],
+        (error,results)=>{
+            if (error) {
+                console.log(error);
+                res.status(500).send("Error executing query")
+            }else{
+                res.status(200).send(results);
+            } 
+        }
+    )
+});
+
 appClientes.get("/:DNI",(req,res)=>{
     const dni = req.params.DNI
     con.query(
