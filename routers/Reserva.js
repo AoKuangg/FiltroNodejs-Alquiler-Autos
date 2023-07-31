@@ -34,7 +34,20 @@ appReserva.get("/",(req,res)=>{
     )
 });
 
-
+appReserva.get("/:idCliente",(req,res)=>{
+    const idCliente = req.params.idCliente
+    con.query(
+        `SELECT * FROM Reserva WHERE ID_Cliente = ? `,[idCliente],
+        (err,results)=>{
+            if(err){
+                console.log(err);
+                res.status(500).send("Error executing query");
+            }else{
+                res.status(200).send(results);
+            }
+        }
+    )
+});
 
 
 
