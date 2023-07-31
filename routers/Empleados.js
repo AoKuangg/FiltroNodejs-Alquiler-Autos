@@ -15,6 +15,7 @@ appEmpleados.use((req,res,next)=>{
    } 
 });
 
+
 appEmpleados.get("/",(req,res)=>{
     con.query(
         `SELECT * FROM Empleado WHERE Cargo = "Vendedor"
@@ -28,7 +29,19 @@ appEmpleados.get("/",(req,res)=>{
         }
     )
 });
-
+appEmpleados.get("/altoCargo",(req,res)=>{
+    con.query(
+        `SELECT * FROM Empleado WHERE Cargo = "Gerente" OR Cargo = "Asistente"
+        `, (error,results)=>{
+            if(error){
+                console.log(error);
+                res.status(500).send("Error executing query")
+            }else{
+                res.status(200).send(results);
+            }
+        }
+    )
+});
 
 
 
