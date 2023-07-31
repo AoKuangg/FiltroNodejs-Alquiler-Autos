@@ -25,7 +25,7 @@ appEmpleados.get("/",generateToken,(req,res)=>{
                 console.log(error);
                 res.status(500).send("Error executing query")
             }else{
-                res.status(200).send(results);
+                res.status(200).send({results,token: req.auth});
             }
         }
     )
