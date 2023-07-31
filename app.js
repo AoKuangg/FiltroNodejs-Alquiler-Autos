@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import appClientes from "./routers/Clientes.js";
 import appAutos from "./routers/Autos.js";
-import appAlquiler from "./routers/Alquiler.js";
+import {appAlquiler , appAlquilerCosto} from "./routers/Alquiler.js";
 import appReserva from "./routers/Reserva.js";
 import appEmpleados from "./routers/Empleados.js";
 import appSucursal from "./routers/Sucursal.js";
@@ -19,6 +19,7 @@ AlquilerApp.use("/alquiler",appAlquiler);
 AlquilerApp.use("/reserva",appReserva);
 AlquilerApp.use("/empleados",appEmpleados);
 AlquilerApp.use("/sucursal",appSucursal);
+AlquilerApp.use("/alquiler_costo",appAlquilerCosto);
 
 
 let config = JSON.parse(process.env.MY_CONFIG);
