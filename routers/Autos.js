@@ -33,6 +33,20 @@ appAutos.get("/",(req,res)=>{
 });
 
 
+appAutos.get("/capacidad",(req,res)=>{
+    con.query(
+        `SELECT * FROM Automovil WHERE Capacidad = "7";
+        `, (error,results)=>{
+            if(error){
+                console.log(error);
+                res.status(500).send("Error executing query")
+            }else{
+                res.status(200).send(results);
+            }
+        }
+    )
+});
+
 
 
 
