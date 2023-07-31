@@ -37,7 +37,7 @@ appReserva.get("/",(req,res)=>{
 appReserva.get("/:idCliente",(req,res)=>{
     const idCliente = req.params.idCliente
     con.query(
-        `SELECT * FROM Reserva WHERE ID_Cliente = ? `,[idCliente],
+        `SELECT * FROM Reserva WHERE ID_Cliente = ? AND Estado = "Pendiente" `,[idCliente],
         (err,results)=>{
             if(err){
                 console.log(err);
