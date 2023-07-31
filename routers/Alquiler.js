@@ -45,6 +45,22 @@ appAlquiler.get("/fecha",(req,res)=>{
     )
 });
 
+
+appAlquiler.get("/entrefechas",(req,res)=>{
+    con.query(
+        `SELECT * FROM Alquiler WHERE Fecha_Inicio BETWEEN "2023-07-05" AND "2023-07-10"
+        `, (error,results)=>{
+            if(error){
+                console.log(error);
+                res.status(500).send("Error executing query")
+            }else{
+                res.status(200).send(results);
+            }
+        }
+    )
+});
+
+
 appAlquiler.get("/total",(req,res)=>{
     con.query(
         `SELECT COUNT(*) as Cantidad_de_alquileres FROM Alquiler`, 
