@@ -29,7 +29,20 @@ appClientes.get("/",(req,res)=>{
     )
 });
 
-
+appClientes.get("/alquiler",(req,res)=>{
+    con.query(
+        `SELECT c.* FROM Cliente c INNER JOIN Alquiler a ON c.ID_Cliente = a.ID_Cliente
+        WHERE a.Estado = "activo"`,
+        (error,results)=>{
+            if (error) {
+                console.log(error);
+                res.status(500).send("Error executing query")
+            }else{
+                res.status(200).send(results);
+            }
+        }
+    )
+});
 appClientes.get("/:DNI",(req,res)=>{
     const dni = req.params.DNI
     con.query(
@@ -44,5 +57,8 @@ appClientes.get("/:DNI",(req,res)=>{
         }
     )
 });
+
+
+
 
 export default appClientes;
