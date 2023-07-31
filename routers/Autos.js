@@ -47,6 +47,19 @@ appAutos.get("/capacidad",(req,res)=>{
     )
 });
 
+appAutos.get("/marca" ,(req,res)=>{
+    con.query(
+        `SELECT * FROM Automovil ORDER BY Marca ASC`,
+        (error,results)=>{
+            if(error){
+                console.log(error);
+                res.status(500).send("Error executing query")
+            }else{
+                res.status(200).send(results);
+            }
+        }
+    )
+});
 
 
 
