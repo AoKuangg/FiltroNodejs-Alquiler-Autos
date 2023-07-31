@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "es6",//Esta opción especifica la versión de ECMAScript
+    "module": "ES6",//especifica el sistema de módulos que se utilizará al compilador 
+    "moduleResolution": "node",//define cómo se resolverán los módulos al importarlos
+    "outDir": "./controller",//especifica la carpeta de destino
+    "esModuleInterop": true,//Esta opción habilita la interoperabilidad de módulos
+    "experimentalDecorators": true,//Esta opción habilita el soporte para decoradores 
+    "emitDecoratorMetadata": true//Esta opción habilita la generación de metadatos
+  }
+}
